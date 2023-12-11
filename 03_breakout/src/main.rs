@@ -3,12 +3,18 @@ use bevy::prelude::*;
 //use std::{error::Error, time::Duration};
 //use tokio::{task, time};
 
+fn main() {
+    App::new().add_plugins(DefaultPlugins).run();
+}
+
+/*
 #[tokio::main(worker_threads = 1)]
 async fn main() -> Result<(), Box<dyn Error>> {
     App::new().add_plugins(DefaultPlugins).run();
     //websocket_init().await
     Ok(())
 }
+*/
 
 /*
 // #[tokio::main(worker_threads = 1)]
