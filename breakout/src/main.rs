@@ -5,6 +5,18 @@ use bevy::{
     sprite::collide_aabb::{collide, Collision},
     sprite::MaterialMesh2dBundle,
 };
+use wasm_bindgen::prelude::*;
+use web_sys::{ErrorEvent, MessageEvent, WebSocket};
+
+macro_rules! console_log {
+    ($($t:tt)*) => (log(&format_args!($($t)*).to_string()))
+}
+
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+}
 
 // These constants are defined in `Transform` units.
 // Using the default 2D camera they correspond 1:1 with screen pixels.
@@ -412,4 +424,42 @@ fn play_collision_sound(
             settings: PlaybackSettings::DESPAWN,
         });
     }
+}
+#[wasm_bindgen(start)]
+fn start_websocket()-> Result<(), JsValue> {
+    // Connect to an echo server
+    let ws = WebSocket::new("wss://echo.websocket.events")?;
+    // For small binary messages, like CBOR, Arraybuffer is more efficient than Blob handling
+    ws.set_binary_type(web_sys::BinaryType::Arraybuffer);
+    // create callback
+    let cloned_ws = ws.clone();
+    let onmessage_callback = Closure::<dyn FnMut(_)>::new(move |e: MessageEvent| {
+    });
+    // set message event handler on WebSocket
+    ws.set_onmessage(Some(onmessage_callback.as_ref().unchecked_ref()));
+    // forget the callback to keep it alive
+    onmessage_callback.forget();
+
+    let onerror_callback = Closure::<dyn FnMut(_)>::new(move |e: ErrorEvent| {
+        console_log!("error event: {:?}", e);
+    });
+    ws.set_onerror(Some(onerror_callback.as_ref().unchecked_ref()));
+    onerror_callback.forget();
+
+    let cloned_ws = ws.clone();
+    let onopen_callback = Closure::<dyn FnMut()>::new(move || {
+        console_log!("socket opened");
+        match cloned_ws.send_with_str("ping") {
+            Ok(_) => console_log!("message successfully sent"),
+            Err(err) => console_log!("error sending message: {:?}", err),
+        }
+        // send off binary message
+        match cloned_ws.send_with_u8_array(&[0, 1, 2, 3]) {
+            Ok(_) => console_log!("binary message successfully sent"),
+            Err(err) => console_log!("error sending message: {:?}", err),
+        }
+    });
+    ws.set_onopen(Some(onopen_callback.as_ref().unchecked_ref()));
+    onopen_callback.forget();
+    Ok(())
 }
