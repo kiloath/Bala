@@ -1,14 +1,16 @@
 use bevy::prelude::*;
-use rumqttc::{self, AsyncClient, MqttOptions, QoS, Transport};
-use std::{error::Error, time::Duration};
-use tokio::{task, time};
+//use rumqttc::{self, AsyncClient, MqttOptions, QoS, Transport};
+//use std::{error::Error, time::Duration};
+//use tokio::{task, time};
 
 #[tokio::main(worker_threads = 1)]
 async fn main() -> Result<(), Box<dyn Error>> {
-    // App::new().add_plugins(DefaultPlugins).run();
-    websocket_init().await
+    App::new().add_plugins(DefaultPlugins).run();
+    //websocket_init().await
+    Ok(())
 }
 
+/*
 // #[tokio::main(worker_threads = 1)]
 async fn websocket_init() -> Result<(), Box<dyn Error>> {
     //pretty_env_logger::init();
@@ -52,3 +54,4 @@ async fn requests(client: AsyncClient) {
 
     time::sleep(Duration::from_secs(120)).await;
 }
+*/
