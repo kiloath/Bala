@@ -1,0 +1,9 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "D:\\workspace_github-kiloath\\Bala\\02_excel_01\\squaredll\\build\\generators\\CMakePresets.json"
+    ]
+}
