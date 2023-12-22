@@ -1,10 +1,16 @@
-use bevy::prelude::*;
+//use bevy::prelude::*;
+use wasm_bindgen::prelude::*;
+use web_sys::{ErrorEvent, MessageEvent, WebSocket};
 //use rumqttc::{self, AsyncClient, MqttOptions, QoS, Transport};
 //use std::{error::Error, time::Duration};
 //use tokio::{task, time};
 
 fn main() {
-    App::new().add_plugins(DefaultPlugins).run();
+    let ws = WebSocket::new("ws://127.0.0.1:8083/mqtt");
+    ws.set_binary_type(web_sys::BinaryType::Arraybuffer);
+    // create callback
+    let cloned_ws = ws.clone();
+    //App::new().add_plugins(DefaultPlugins).run();
 }
 
 /*
