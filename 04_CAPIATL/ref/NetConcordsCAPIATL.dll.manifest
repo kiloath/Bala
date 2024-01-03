@@ -1,0 +1,2 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0"><assemblyIdentity name="NetConcordsCAPIATL" version="1.0.0.0" processorArchitecture="msil"></assemblyIdentity><clrSurrogate clsid="{FCE997AF-6846-4511-B8F7-27E352787165}" name="ConcordsCAPIATLLib.ConcordsCAPIClass"></clrSurrogate><file name="NetConcordsCAPIATL.dll" hashalg="SHA1"></file></assembly>

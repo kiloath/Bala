@@ -6,16 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <COMReference Include="ConcordsCAPIATLLib">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>0</VersionMinor>
-      <VersionMajor>1</VersionMajor>
-      <Guid>f728bd1f-9385-476b-b911-cd3d16779212</Guid>
-      <Lcid>0</Lcid>
-      <Isolated>True</Isolated>
-      <EmbedInteropTypes>true</EmbedInteropTypes>
-      <Private>True</Private>
-    </COMReference>
+    <Reference Include="NetConcordsCAPIATL">
+      <HintPath>..\..\ref\NetConcordsCAPIATL.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
